@@ -1,14 +1,34 @@
 const fs = require("fs");
 const axios = require("axios");
 const inquirer = require("inquirer");
+const util = require("util");
+
+const appendFileAsync = util.promisify(fs.writeFile);
 
 
 
 
-function writeToFile(fileName, data) {
+async function writeToFile(fileName, data) {
+const output = `
+# ${data.projectTitle}
+## ${data.description} 
 
+## Table of Contents
+- [Installation](#installation)
+- [Prettier Setup](#prettier-setup)
+- [ESLint Setup](#eslint-setup)
+- [Test Infrastructure](#test-infrastructure)
+- [Configuration Infrastructure](#configuration-infrastructure)
+- [Logging Infrastructure](#logging-infrastructure)
 
+## Installation
+${data.installation}
 
+![Image of user](${data.gitHub.profilePicture})
+
+` 
+console.log(output)
+await appendFileAsync(fileName, output)
 }
 
 async function init() {
@@ -68,6 +88,7 @@ async function init() {
     console.log(data)
     answer.gitHub = { profilePicture: data.avatar_url, email: data.email }
     console.log(answer)
+    writeToFile ('READMEALSO.md', answer)
 }
 
 async function gitHubRequest(userName) {
