@@ -9,20 +9,27 @@ const appendFileAsync = util.promisify(fs.writeFile);
 
 
 async function writeToFile(fileName, data) {
-const output = `
+let output = `
 # ${data.projectTitle}
 ## ${data.description} 
 
 ## Table of Contents
 - [Installation](#installation)
-- [Prettier Setup](#prettier-setup)
-- [ESLint Setup](#eslint-setup)
-- [Test Infrastructure](#test-infrastructure)
-- [Configuration Infrastructure](#configuration-infrastructure)
-- [Logging Infrastructure](#logging-infrastructure)
+- [License](#license)
+- [Contributing](#contributing)
+- [tests](#tests)
 
 ## Installation
 ${data.installation}
+
+## License
+${data.license}
+
+## Contributing
+${data.contributing}
+
+## Tests
+${data.tests}
 
 ![Image of user](${data.gitHub.profilePicture})
 
